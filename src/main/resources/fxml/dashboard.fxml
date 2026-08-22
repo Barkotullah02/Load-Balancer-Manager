@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true" styleClass="root-scroll"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.dcp.lbmanager.controller.DashboardController">
+    <VBox spacing="20.0" styleClass="root-pane">
+        <padding>
+            <Insets top="24.0" right="28.0" bottom="24.0" left="28.0"/>
+        </padding>
+
+        <!-- Header -->
+        <VBox spacing="4.0">
+            <Label text="Load Balancer Manager" styleClass="title-label"/>
+            <Label text="Monitor load balancers, backend target health, and listener routing rules"
+                   styleClass="subtitle-label"/>
+        </VBox>
+
+        <!-- Summary cards -->
+        <HBox spacing="16.0" styleClass="card-row">
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <Label text="LOAD BALANCERS" styleClass="card-caption"/>
+                <Label fx:id="lbCountLabel" text="0" styleClass="card-value"/>
+                <Label fx:id="activeLbLabel" text="0 active" styleClass="card-sub"/>
+            </VBox>
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <Label text="BACKEND TARGETS" styleClass="card-caption"/>
+                <Label fx:id="targetCountLabel" text="0" styleClass="card-value"/>
+                <Label fx:id="healthyTargetLabel" text="0 healthy" styleClass="card-sub"/>
+            </VBox>
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <Label text="ACTIVE CONNECTIONS" styleClass="card-caption"/>
+                <Label fx:id="totalConnLabel" text="0" styleClass="card-value"/>
+                <Label text="across all LBs" styleClass="card-sub"/>
+            </VBox>
+            <VBox styleClass="summary-card" HBox.hgrow="ALWAYS">
+                <Label text="TOTAL THROUGHPUT" styleClass="card-caption"/>
+                <Label fx:id="totalThroughputLabel" text="0 Mbps" styleClass="card-value"/>
+                <Label text="aggregate" styleClass="card-sub"/>
+            </VBox>
+        </HBox>
+
+        <!-- Load balancers -->
+        <Label text="Load Balancers" styleClass="section-label"/>
+        <TableView fx:id="lbTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="lbNameCol" text="Name" prefWidth="180"/>
+                <TableColumn fx:id="lbTypeCol" text="Type" prefWidth="120"/>
+                <TableColumn fx:id="lbRegionCol" text="Region" prefWidth="140"/>
+                <TableColumn fx:id="lbStatusCol" text="Status" prefWidth="130"/>
+                <TableColumn fx:id="lbConnCol" text="Connections" prefWidth="140"/>
+                <TableColumn fx:id="lbThroughputCol" text="Throughput (Mbps)" prefWidth="170"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+
+        <!-- Backend targets -->
+        <Label text="Backend Targets" styleClass="section-label"/>
+        <TableView fx:id="targetTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="tgtLbCol" text="Load Balancer" prefWidth="180"/>
+                <TableColumn fx:id="tgtIpCol" text="IP Address" prefWidth="160"/>
+                <TableColumn fx:id="tgtPortCol" text="Port" prefWidth="100"/>
+                <TableColumn fx:id="tgtHealthCol" text="Health" prefWidth="130"/>
+                <TableColumn fx:id="tgtWeightCol" text="Weight" prefWidth="110"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+
+        <!-- Listener rules -->
+        <Label text="Listener Rules" styleClass="section-label"/>
+        <TableView fx:id="ruleTable" styleClass="data-table" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn fx:id="ruleLbCol" text="Load Balancer" prefWidth="170"/>
+                <TableColumn fx:id="rulePriorityCol" text="Priority" prefWidth="90"/>
+                <TableColumn fx:id="ruleProtocolCol" text="Protocol" prefWidth="110"/>
+                <TableColumn fx:id="rulePortCol" text="Port" prefWidth="90"/>
+                <TableColumn fx:id="rulePathCol" text="Path Pattern" prefWidth="180"/>
+                <TableColumn fx:id="ruleTargetCol" text="Target Group" prefWidth="160"/>
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+            </columnResizePolicy>
+        </TableView>
+    </VBox>
+</ScrollPane>
